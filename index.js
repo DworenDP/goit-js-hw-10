@@ -12,3 +12,24 @@ const countryListRef = document.querySelector("country-list");
 const countryInfoRef = document.querySelector("country-info");
 
 searchRef.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
+
+function onInput(event) {
+  let inputCountry = event.target.value.trim();
+
+  if (inputCountry) {
+    return getCountries(inputCountry)
+      .then((data) => {
+        choseMarkup(data);
+      })
+      .catch((error) => {
+        Notify.failure("Oops, there is no country with that name");
+      });
+  }
+
+  countryInfoRef.innerHTML = "";
+  countryListRef.innerHTML = "";
+}
+
+countryListRef.style.listStyle = "none";
+countryListRef.style.margin = "0";
+countryListRef.style.padding = "10px";

@@ -18,4 +18,31 @@ body {
   padding: 8px;
 }
 
+.content__wrapper {
+  margin-left: 30%;
+}
+
+.country-info_list, .country-info_item > h2, .country-info_item > p, .country-item > p, h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.country-info_item {
+  align-items: center;
+  display: flex;
+}
+
+.country-info_item > p {
+  margin-left: 8px;
+}
+
+.country-item {
+  align-items: center;
+  display: flex;
+}
+
+.country-item > p {
+  margin-left: 8px;
+}
+
 /*# sourceMappingURL=index.77a9bc14.css.map */

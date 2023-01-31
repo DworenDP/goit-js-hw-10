@@ -514,8 +514,8 @@ const searchRef = document.querySelector("#search-box");
 const countryListRef = document.querySelector("country-list");
 const countryInfoRef = document.querySelector("country-info");
 searchRef.addEventListener("input", (0, _lodashDebounceDefault.default)(onInput, DEBOUNCE_DELAY));
-function onInput(e) {
-    let inputCountry = e.target.value.trim();
+function onInput(event) {
+    let inputCountry = event.target.value.trim();
     if (inputCountry) return (0, _fetchScript.getCountries)(inputCountry).then((data)=>{
         choseMarkup(data);
     }).catch((error)=>{
@@ -539,33 +539,33 @@ function choseMarkup(countryArray) {
     return (0, _notiflix.Notify).info("Too many matches found. Please enter a more specific name.");
 }
 function markupCountryItem(data) {
-    const markup = data.map((el)=>{
+    const markup = data.map((element)=>{
         return `<li class="country-item">
-            <img src="${el.flags.svg}" alt="${el.name.official}" width="40" height="20" /> 
-            <p>${el.name.official}</p>
+            <img src="${element.flags.svg}" alt="${element.name.official}" width="50" height="25" /> 
+            <p>${element.name.official}</p>
             </li>`;
     }).join("");
     countryListRef.innerHTML = markup;
 }
 function markupCountry(data) {
-    const markup = data.map((el)=>{
+    const markup = data.map((element)=>{
         return `<h1>
-       <img src="${el.flags.svg}" alt="${el.name.official}" width="40" height="20" /> 
+       <img src="${element.flags.svg}" alt="${element.name.official}" width="40" height="20" /> 
             
-        ${el.name.official}
+        ${element.name.official}
       </h1>
       <ul class="country-info_list">
         <li class="country-info_item">
           <h2>Capital:</h2>
-          <p>${el.capital}</p>
+          <p>${element.capital}</p>
         </li>
         <li class="country-info_item">
           <h2>Population:</h2>
-          <p>${el.population}</p>
+          <p>${element.population}</p>
         </li>
         <li class="country-info_item">
           <h2>Languages:</h2>
-          <p>${Object.values(el.languages).join(", ")}</p>
+          <p>${Object.values(element.languages).join(", ")}</p>
         </li>
       </ul>`;
     }).join("");

@@ -508,15 +508,15 @@ var _stylesCss = require("./css/styles.css");
 var _lodashDebounce = require("lodash.debounce");
 var _lodashDebounceDefault = parcelHelpers.interopDefault(_lodashDebounce);
 var _notiflix = require("notiflix");
-var _fetchScript = require("./js/fetch-script");
+var _getCountriesJs = require("./js/getCountries.js");
 const DEBOUNCE_DELAY = 300;
 const searchRef = document.querySelector("#search-box");
-const countryListRef = document.querySelector("country-list");
-const countryInfoRef = document.querySelector("country-info");
+const countryListRef = document.querySelector(".country-list");
+const countryInfoRef = document.querySelector(".country-info");
 searchRef.addEventListener("input", (0, _lodashDebounceDefault.default)(onInput, DEBOUNCE_DELAY));
-function onInput(event) {
-    let inputCountry = event.target.value.trim();
-    if (inputCountry) return (0, _fetchScript.getCountries)(inputCountry).then((data)=>{
+function onInput(e) {
+    let inputCountry = e.target.value.trim();
+    if (inputCountry) return (0, _getCountriesJs.getCountries)(inputCountry).then((data)=>{
         choseMarkup(data);
     }).catch((error)=>{
         (0, _notiflix.Notify).failure("Oops, there is no country with that name");
@@ -526,7 +526,7 @@ function onInput(event) {
 }
 countryListRef.style.listStyle = "none";
 countryListRef.style.margin = "0";
-countryListRef.style.padding = "8px";
+countryListRef.style.padding = "12px";
 function choseMarkup(countryArray) {
     if (countryArray.length === 1) {
         countryListRef.innerHTML = "";
@@ -539,40 +539,40 @@ function choseMarkup(countryArray) {
     return (0, _notiflix.Notify).info("Too many matches found. Please enter a more specific name.");
 }
 function markupCountryItem(data) {
-    const markup = data.map((element)=>{
+    const markup = data.map((el)=>{
         return `<li class="country-item">
-            <img src="${element.flags.svg}" alt="${element.name.official}" width="50" height="25" /> 
-            <p>${element.name.official}</p>
+            <img src="${el.flags.svg}" alt="${el.name.official}" width="80"  /> 
+            <p>${el.name.official}</p>
             </li>`;
     }).join("");
     countryListRef.innerHTML = markup;
 }
 function markupCountry(data) {
-    const markup = data.map((element)=>{
+    const markup = data.map((el)=>{
         return `<h1>
-       <img src="${element.flags.svg}" alt="${element.name.official}" width="40" height="20" /> 
+       <img src="${el.flags.svg}" alt="${el.name.official}" width="80"  /> 
             
-        ${element.name.official}
+        ${el.name.official}
       </h1>
       <ul class="country-info_list">
         <li class="country-info_item">
           <h2>Capital:</h2>
-          <p>${element.capital}</p>
+          <p>${el.capital}</p>
         </li>
         <li class="country-info_item">
           <h2>Population:</h2>
-          <p>${element.population}</p>
+          <p>${el.population}</p>
         </li>
         <li class="country-info_item">
           <h2>Languages:</h2>
-          <p>${Object.values(element.languages).join(", ")}</p>
+          <p>${Object.values(el.languages).join(", ")}</p>
         </li>
       </ul>`;
     }).join("");
     countryInfoRef.innerHTML = markup;
 }
 
-},{"./css/styles.css":"1CY4s","lodash.debounce":"3JP5n","notiflix":"5z0Oc","./js/fetch-script":"hH0pw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1CY4s":[function() {},{}],"3JP5n":[function(require,module,exports) {
+},{"./css/styles.css":"1CY4s","lodash.debounce":"3JP5n","notiflix":"5z0Oc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./js/getCountries.js":"hoq6B"}],"1CY4s":[function() {},{}],"3JP5n":[function(require,module,exports) {
 var global = arguments[3];
 /**
  * lodash (Custom Build) <https://lodash.com/>
@@ -1616,21 +1616,7 @@ var global = arguments[3];
     };
 });
 
-},{}],"hH0pw":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getCountries", ()=>getCountries);
-parcelHelpers.export(exports, "getCountries", ()=>getCountries);
-const ENDPOINT = "https://restcountries.com/v3.1/name/";
-const FIELDS = "name,capital,population,flags,languages";
-function getCountries(name) {
-    return fetch(`${ENDPOINT}${name}?fields=${FIELDS}`).then((response)=>{
-        if (!response.ok) throw new Error(response.status);
-        return response.json();
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1660,6 +1646,19 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["1RB6v","8lqZg"], "8lqZg", "parcelRequired7c6")
+},{}],"hoq6B":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getCountries", ()=>getCountries);
+const ENDPOINT = "https://restcountries.com/v3.1/name/";
+const FIELDS = "name,capital,population,flags,languages";
+function getCountries(name) {
+    return fetch(`${ENDPOINT}${name}?fields=${FIELDS}`).then((response)=>{
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1RB6v","8lqZg"], "8lqZg", "parcelRequired7c6")
 
 //# sourceMappingURL=index.975ef6c8.js.map

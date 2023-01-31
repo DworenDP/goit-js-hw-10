@@ -10,3 +10,5 @@ export function getCountries(name) {
     return response.json();
   });
 }
+
+export { getCountries };

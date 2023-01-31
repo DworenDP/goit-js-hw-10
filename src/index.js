@@ -25,6 +25,7 @@ function onInput(event) {
         Notify.failure("Oops, there is no country with that name");
       });
   }
+  console.log(inputCountry);
 
   countryInfoRef.innerHTML = "";
   countryListRef.innerHTML = "";

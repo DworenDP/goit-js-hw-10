@@ -13,8 +13,9 @@ const countryInfoRef = document.querySelector("country-info");
 
 searchRef.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
 
-function onInput(e) {
-  let inputCountry = e.target.value.trim();
+
+function onInput(event) {
+  let inputCountry = event.target.value.trim();
 
   if (inputCountry) {
     return getCountries(inputCountry)
@@ -51,10 +52,10 @@ function choseMarkup(countryArray) {
 
 function markupCountryItem(data) {
   const markup = data
-    .map((el) => {
+    .map((element) => {
       return `<li class="country-item">
-            <img src="${el.flags.svg}" alt="${el.name.official}" width="40" height="20" /> 
-            <p>${el.name.official}</p>
+            <img src="${element.flags.svg}" alt="${element.name.official}" width="50" height="25" /> 
+            <p>${element.name.official}</p>
             </li>`;
     })
     .join("");
@@ -64,26 +65,26 @@ function markupCountryItem(data) {
 
 function markupCountry(data) {
   const markup = data
-    .map((el) => {
+    .map((element) => {
       return `<h1>
-       <img src="${el.flags.svg}" alt="${
-        el.name.official
+       <img src="${element.flags.svg}" alt="${
+        element.name.official
       }" width="40" height="20" /> 
             
-        ${el.name.official}
+        ${element.name.official}
       </h1>
       <ul class="country-info_list">
         <li class="country-info_item">
           <h2>Capital:</h2>
-          <p>${el.capital}</p>
+          <p>${element.capital}</p>
         </li>
         <li class="country-info_item">
           <h2>Population:</h2>
-          <p>${el.population}</p>
+          <p>${element.population}</p>
         </li>
         <li class="country-info_item">
           <h2>Languages:</h2>
-          <p>${Object.values(el.languages).join(", ")}</p>
+          <p>${Object.values(element.languages).join(", ")}</p>
         </li>
       </ul>`;
     })

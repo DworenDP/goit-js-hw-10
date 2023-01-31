@@ -13,29 +13,28 @@ const countryInfoRef = document.querySelector("country-info");
 
 searchRef.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
 
-function onInput(event) {
-  let inputCountry = event.target.value.trim();
+function onInput(e) {
+  let inputCountry = e.target.value.trim();
 
   if (inputCountry) {
     return getCountries(inputCountry)
       .then((data) => {
-        choiceMarkup(data);
+        choseMarkup(data);
       })
       .catch((error) => {
         Notify.failure("Oops, there is no country with that name");
       });
   }
-  console.log(inputCountry);
 
   countryInfoRef.innerHTML = "";
   countryListRef.innerHTML = "";
 }
 
-// countryListRef.style.listStyle = "none";
-// countryListRef.style.margin = "0";
-// countryListRef.style.padding = "10px";
+countryListRef.style.listStyle = "none";
+countryListRef.style.margin = "0";
+countryListRef.style.padding = "8px";
 
-function choiceMarkup(countryArray) {
+function choseMarkup(countryArray) {
   if (countryArray.length === 1) {
     countryListRef.innerHTML = "";
     return markupCountry(countryArray);
@@ -44,6 +43,7 @@ function choiceMarkup(countryArray) {
     countryInfoRef.innerHTML = "";
     return markupCountryItem(countryArray);
   }
+
   return Notify.info(
     "Too many matches found. Please enter a more specific name."
   );
@@ -51,11 +51,11 @@ function choiceMarkup(countryArray) {
 
 function markupCountryItem(data) {
   const markup = data
-    .map((element) => {
+    .map((el) => {
       return `<li class="country-item">
-        <img src="${element.flags.svg}" alt="${element.name.official}" width="50" height="25" />
-        <p>${element.name.official}</p>
-        </li>`;
+            <img src="${el.flags.svg}" alt="${el.name.official}" width="40" height="20" /> 
+            <p>${el.name.official}</p>
+            </li>`;
     })
     .join("");
 
@@ -64,26 +64,28 @@ function markupCountryItem(data) {
 
 function markupCountry(data) {
   const markup = data
-    .map((element) => {
+    .map((el) => {
       return `<h1>
-        <img src="${element.flags.svg}" alt="${
-        element.name.official
-      }" width="50" height="25"/>
-        ${element.name.official}</h1>
-        <ul class="country-info_list">
+       <img src="${el.flags.svg}" alt="${
+        el.name.official
+      }" width="40" height="20" /> 
+            
+        ${el.name.official}
+      </h1>
+      <ul class="country-info_list">
         <li class="country-info_item">
-        <h2>Capital:</h2>
-        <p>${element.capital}</p>
+          <h2>Capital:</h2>
+          <p>${el.capital}</p>
         </li>
         <li class="country-info_item">
-        <h2>Population:</h2>
-        <p>${element.population}</p>
+          <h2>Population:</h2>
+          <p>${el.population}</p>
         </li>
         <li class="country-info_item">
-        <h2>Languages:</h2>
-        <p>${Object.values(element.languages).join(", ")}</p>
+          <h2>Languages:</h2>
+          <p>${Object.values(el.languages).join(", ")}</p>
         </li>
-        </ul>`;
+      </ul>`;
     })
     .join("");
 

@@ -3,7 +3,7 @@ import "./css/styles.css";
 import debounce from "lodash.debounce";
 import { Notify } from "notiflix";
 
-import { getCountries } from "./src/js/fetch-script";
+import { getCountries } from "./js/fetch-script";
 
 const DEBOUNCE_DELAY = 300;
 
@@ -37,6 +37,10 @@ countryListRef.style.padding = "10px";
 function choiceMarkup(countryArray) {
   if (countryArray.length === 1) {
     countryListRef.innerHTML = "";
+    return markupCountry(countryArray);
+  }
+  if (countryArray.length >= 2 && countryArray.length <= 10) {
+    countryInfoRef.innerHTML = "";
     return markupCountryItem(countryArray);
   }
   return Notify.info(

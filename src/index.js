@@ -31,9 +31,9 @@ function onInput(event) {
   countryListRef.innerHTML = "";
 }
 
-countryListRef.style.listStyle = "none";
-countryListRef.style.margin = "0";
-countryListRef.style.padding = "10px";
+// countryListRef.style.listStyle = "none";
+// countryListRef.style.margin = "0";
+// countryListRef.style.padding = "10px";
 
 function choiceMarkup(countryArray) {
   if (countryArray.length === 1) {
